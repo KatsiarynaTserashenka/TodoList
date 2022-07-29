@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 
-const Input: FC = () => {
+interface IProps {
+  text: string;
+}
+
+const Input: FC<IProps> = (props) => {
+  const { text } = props;
+
   return (
     <div>
-      <input type="text" placeholder="New Todo" />
+      <input type="text" placeholder={text} />
     </div>
   );
 };

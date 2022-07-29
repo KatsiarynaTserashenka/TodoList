@@ -5,8 +5,8 @@ import Button from 'components/Button';
 
 const TodoList = () => {
   return (
-    <div data-testid="todo-container">
-      <Input />
+    <div>
+      <Input text="New task" />
       <Button text="Add task" />
       <TodoItem />
     </div>
