@@ -1,11 +1,11 @@
 import React from 'react';
 import TodoItem from 'components/TodoItem';
-/* import TodoInput from 'components/TodoInput'; */
+import Input from 'components/Input';
 
 const TodoList = () => {
   return (
     <div data-testid="todo-container">
-      <h2>TodoList</h2>
+      <Input />
       <TodoItem />
     </div>
   );
