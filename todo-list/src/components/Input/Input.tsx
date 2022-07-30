@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 
 interface IProps {
-  text: string;
+  text?: string;
+  type: string;
 }
 
 const Input: FC<IProps> = (props) => {
-  const { text } = props;
+  const { text, type } = props;
 
   return (
     <div>
-      <input type="text" placeholder={text} />
+      <input type={type} placeholder={text} />
     </div>
   );
 };

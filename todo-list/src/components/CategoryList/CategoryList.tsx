@@ -6,7 +6,7 @@ import Button from 'components/Button';
 const CategoryList = () => {
   return (
     <div>
-      <Input text="New category" />
+      <Input type="text" text="New category" />
       <Button text="Add category" />
       <CategoryItem />
     </div>
