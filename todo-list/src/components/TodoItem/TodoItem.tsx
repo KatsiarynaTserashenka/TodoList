@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 
-const TodoItem: FC<{}> = (props) => {
-  return <div></div>;
+const TodoItem: FC<{ title: string }> = (props) => {
+  const { title } = props;
+  return <div>{title}</div>;
 };
 
 export default TodoItem;

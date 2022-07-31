@@ -3,12 +3,12 @@ import React, { FC, useState } from 'react';
 interface IProps {
   placeholder?: string;
   type: string;
-  newCategory: string;
-  onChange: (newCategory: string) => void;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 const Input: FC<IProps> = (props) => {
-  const { placeholder, type, newCategory, onChange } = props;
+  const { placeholder, type, value, onChange } = props;
 
   const addNew = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
@@ -19,7 +19,7 @@ const Input: FC<IProps> = (props) => {
       <input
         type={type}
         placeholder={placeholder}
-        value={newCategory}
+        value={value}
         onChange={addNew}
       />
     </div>

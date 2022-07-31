@@ -3,13 +3,7 @@ import CategoryItem from 'components/CategoryItem';
 import Input from 'components/Input';
 import Button from 'components/Button';
 
-interface IProps {
-  /* category: string; */
-  /* categories: []; */
-}
-
-const CategoryList: React.FC<IProps> = (props) => {
-  /* const { categories } = props; */
+const CategoryList: FC = () => {
   const [newCategory, setNewCategory] = useState('');
   const [categories, setCategories] = useState<Array<{}>>([]);
 
@@ -19,7 +13,7 @@ const CategoryList: React.FC<IProps> = (props) => {
 
   const addCategory = () => {
     if (!newCategory) {
-      alert('Enter new category');
+      alert('Enter new category!');
       return;
     }
 
@@ -30,9 +24,6 @@ const CategoryList: React.FC<IProps> = (props) => {
 
     setCategories((oldList) => [...oldList, category]);
     setNewCategory('');
-
-    console.log(category);
-    console.log(categories);
   };
 
   return (
@@ -40,19 +31,15 @@ const CategoryList: React.FC<IProps> = (props) => {
       <Input
         type="text"
         placeholder="New category"
-        newCategory={newCategory}
+        value={newCategory}
         onChange={handleChange}
       />
       <Button text="Add category" onClick={addCategory} />
-      <ul>
+      <div>
         {categories.map((category: any) => {
-          return (
-            <li>
-              <CategoryItem key={category.id} title={category.title} />
-            </li>
-          );
+          return <CategoryItem key={category.id} title={category.title} />;
         })}
-      </ul>
+      </div>
     </div>
   );
 };
