@@ -1,16 +1,27 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 interface IProps {
-  text?: string;
+  placeholder?: string;
   type: string;
+  newCategory: string;
+  onChange: (newCategory: string) => void;
 }
 
 const Input: FC<IProps> = (props) => {
-  const { text, type } = props;
+  const { placeholder, type, newCategory, onChange } = props;
+
+  const addNew = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
 
   return (
     <div>
-      <input type={type} placeholder={text} />
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={newCategory}
+        onChange={addNew}
+      />
     </div>
   );
 };

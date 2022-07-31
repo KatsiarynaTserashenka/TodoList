@@ -6,9 +6,9 @@ import Button from 'components/Button';
 const TodoList = () => {
   return (
     <div>
-      <Input type="text" text="New task" />
+      {/* <Input type="text" placeholder="New task" />
       <Button text="Add task" />
-      <TodoItem />
+      <TodoItem /> */}
     </div>
   );
 };
