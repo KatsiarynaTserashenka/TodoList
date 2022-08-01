@@ -6,8 +6,9 @@ const FilterBar: FC = () => {
     <>
       <h1>To-Do List</h1>
       <div>
-        <Input type="checkbox" />
-        <Input type="search" text="Search" />
+        <input type="checkbox" />
+        <span>Show done</span>
+        {/* <Input type="search" placeholder="Search" /> */}
       </div>
     </>
   );

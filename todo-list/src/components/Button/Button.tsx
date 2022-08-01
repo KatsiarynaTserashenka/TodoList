@@ -9,9 +9,9 @@ interface IProps {
 }
 
 const Button: FC<IProps> = (props) => {
-  const { text } = props;
+  const { text, onClick } = props;
 
-  return <button>{text}</button>;
+  return <button onClick={onClick}>{text}</button>;
 };
 
 export default Button;

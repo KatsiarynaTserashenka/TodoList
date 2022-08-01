@@ -1,16 +1,27 @@
 import React, { FC } from 'react';
 
 interface IProps {
-  text?: string;
+  placeholder?: string;
   type: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 const Input: FC<IProps> = (props) => {
-  const { text, type } = props;
+  const { placeholder, type, value, onChange } = props;
+
+  const addNew = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
 
   return (
     <div>
-      <input type={type} placeholder={text} />
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={addNew}
+      />
     </div>
   );
 };
