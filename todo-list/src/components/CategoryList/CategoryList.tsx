@@ -26,6 +26,11 @@ const CategoryList: FC = () => {
     setNewCategory('');
   };
 
+  const deleteCategory = (id: number) => {
+    const newArray = categories.filter((category: any) => category.id !== id);
+    setCategories(newArray);
+  };
+
   return (
     <div>
       <Input
@@ -35,9 +40,19 @@ const CategoryList: FC = () => {
         onChange={handleChange}
       />
       <Button text="Add category" onClick={addCategory} />
+
       <div>
         {categories.map((category: any) => {
-          return <CategoryItem key={category.id} title={category.title} />;
+          return (
+            <>
+              <CategoryItem key={category.id} title={category.title} />
+              <Button
+                text="Delete"
+                onClick={() => deleteCategory(category.id)}
+              />
+              ;
+            </>
+          );
         })}
       </div>
     </div>
