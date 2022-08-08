@@ -1,43 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import TodoItem from 'components/TodoItem';
-import Input from 'components/Input';
-import Button from 'components/Button';
+import TodoInput from 'components/TodoInput';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store/store';
+import { Todo } from 'redux/models/Todo';
 
 const TodoList: FC = () => {
-  const [newTask, setNewTask] = useState('');
-  const [tasks, setTasks] = useState<Array<{}>>([]);
-
-  const handleChange = (newTask: string) => {
-    setNewTask(newTask);
-  };
-
-  const addTask = () => {
-    if (!newTask) {
-      alert('Enter new task!');
-      return;
-    }
-
-    const task = {
-      id: Math.floor(Math.random() * 1000),
-      title: newTask,
-    };
-
-    setTasks((oldList) => [...oldList, task]);
-    setNewTask('');
-  };
+  const todoList = useSelector((state: RootState) => {
+    return state.items.todoItems;
+  });
 
   return (
     <div>
-      <Input
-        type="text"
-        placeholder="New task"
-        value={newTask}
-        onChange={handleChange}
-      />
-      <Button text="Add task" onClick={addTask} />
+      <TodoInput />
       <div>
-        {tasks.map((task: any) => {
-          return <TodoItem key={task.id} title={task.title} />;
+        {todoList.map((todo: Todo) => {
+          return <TodoItem key={todo.id} title={todo.title} />;
         })}
       </div>
     </div>

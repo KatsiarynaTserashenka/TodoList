@@ -1,26 +1,39 @@
 import { Todo } from 'redux/models/Todo';
-import { ActionType } from 'redux/actions/todoActions';
+import { ActionType } from 'redux/actions/actions';
 import {
   AddTodoAction,
-  CompleteTodoAction,
+  AddCategoryAction,
+  EditCategoryAction,
   EditTodoAction,
-  DeleteTodoAction,
-  DeleteDoneTodosAction,
   DeleteAllTodosAction,
+  DeleteCategoryAction,
+  DeleteDoneTodosAction,
+  DeleteTodoAction,
+  DeleteAllCategoriesAction,
+  CompleteTodoAction,
   SetFilterAction,
-} from 'redux/actions/todoActions';
+} from 'redux/actions/actions';
 import { FilterType } from 'redux/models/FilterType';
+import { Category } from 'redux/models/Category';
 
-export type TodosState = {
-  items: Array<Todo>;
+export type State = {
+  todoItems: Array<Todo>;
+  categoryItems: Array<Category>;
   filter: FilterType;
 };
 
-const persistedItems = localStorage.getItem('items');
-let items: Array<Todo> = [];
+const persistedTodos = localStorage.getItem('todoItems');
+let todoItems: Array<Todo> = [];
 
-if (persistedItems !== null) {
-  items = JSON.parse(persistedItems);
+if (persistedTodos !== null) {
+  todoItems = JSON.parse(persistedTodos);
+}
+
+const persistedCategories = localStorage.getItem('catergoryItems');
+let categoryItems: Array<Category> = [];
+
+if (persistedCategories !== null) {
+  categoryItems = JSON.parse(persistedCategories);
 }
 
 const persistedFilter = localStorage.getItem('filter');
@@ -30,43 +43,52 @@ if (persistedFilter !== null) {
   filter = JSON.parse(persistedFilter);
 }
 
-const initialState: TodosState = {
-  items: items,
+const initialState: State = {
+  todoItems,
+  categoryItems,
   filter: filter,
 };
 
 type ActionTypes =
   | AddTodoAction
-  | CompleteTodoAction
+  | AddCategoryAction
+  | EditCategoryAction
   | EditTodoAction
-  | DeleteTodoAction
-  | DeleteDoneTodosAction
   | DeleteAllTodosAction
+  | DeleteAllCategoriesAction
+  | DeleteCategoryAction
+  | DeleteDoneTodosAction
+  | DeleteTodoAction
+  | CompleteTodoAction
   | SetFilterAction;
 
-export const reducer = (
-  state: TodosState = initialState,
-  action: ActionTypes
-) => {
+export const reducer = (state: State = initialState, action: ActionTypes) => {
   switch (action.type) {
     case ActionType.ADD_TODO: {
       return {
         ...state,
-        items: state.items.concat(action.payload),
+        todoItems: state.todoItems.concat(action.payload),
+      };
+    }
+
+    case ActionType.ADD_CATEGORY: {
+      return {
+        ...state,
+        categoryItems: state.categoryItems.concat(action.payload),
       };
     }
 
     case ActionType.COMPLETE_TODO: {
       return {
         ...state,
-        items: state.items.map((item) => {
-          if (item.id === action.payload) {
+        todoItems: state.todoItems.map((todoItem) => {
+          if (todoItem.id === action.payload) {
             return {
-              ...item,
-              isDone: !item.isDone,
+              ...todoItem,
+              isDone: !todoItem.isDone,
             };
           }
-          return item;
+          return todoItem;
         }),
       };
     }
@@ -74,14 +96,29 @@ export const reducer = (
     case ActionType.EDIT_TODO: {
       return {
         ...state,
-        items: state.items.map((item) => {
-          if (item.id === action.payload.id) {
+        todoItems: state.todoItems.map((todoItem) => {
+          if (todoItem.id === action.payload.id) {
             return {
-              ...item,
+              ...todoItem,
               title: action.payload.title,
             };
           }
-          return item;
+          return todoItem;
+        }),
+      };
+    }
+
+    case ActionType.EDIT_CATEGORY: {
+      return {
+        ...state,
+        categoryItems: state.categoryItems.map((categoryItem) => {
+          if (categoryItem.id === action.payload.id) {
+            return {
+              ...categoryItem,
+              title: action.payload.title,
+            };
+          }
+          return categoryItem;
         }),
       };
     }
@@ -89,21 +126,37 @@ export const reducer = (
     case ActionType.DELETE_TODO: {
       return {
         ...state,
-        items: state.items.filter((todo) => todo.id !== action.payload),
+        todoItems: state.todoItems.filter((todo) => todo.id !== action.payload),
+      };
+    }
+
+    case ActionType.DELETE_CATEGORY: {
+      return {
+        ...state,
+        categoryItems: state.categoryItems.filter(
+          (category) => category.id !== action.payload
+        ),
       };
     }
 
     case ActionType.DELETE_DONE_TODOS: {
       return {
         ...state,
-        items: state.items.filter((item) => !item.isDone),
+        todoItems: state.todoItems.filter((todoItem) => !todoItem.isDone),
       };
     }
 
     case ActionType.DELETE_ALL_TODOS: {
       return {
         ...state,
-        items: [],
+        todoItems: [],
+      };
+    }
+
+    case ActionType.DELETE_ALL_CATEGORIES: {
+      return {
+        ...state,
+        categoryItems: [],
       };
     }
 

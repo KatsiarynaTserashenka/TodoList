@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { reducer } from 'redux/reducers/reducer';
 
 const rootReducer = combineReducers({
-  todos: reducer,
+  items: reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
