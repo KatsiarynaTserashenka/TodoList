@@ -1,58 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import CategoryItem from 'components/CategoryItem';
-import Input from 'components/Input';
-import Button from 'components/Button';
+import CategoryInput from 'components/CategoryInput';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store/store';
+import { Category } from 'redux/models/Category';
 
 const CategoryList: FC = () => {
-  const [newCategory, setNewCategory] = useState('');
-  const [categories, setCategories] = useState<Array<{}>>([]);
-
-  const handleChange = (newCategory: string) => {
-    setNewCategory(newCategory);
-  };
-
-  const addCategory = () => {
-    if (!newCategory) {
-      alert('Enter new category!');
-      return;
-    }
-
-    const category = {
-      id: Math.floor(Math.random() * 1000),
-      title: newCategory,
-    };
-
-    setCategories((oldList) => [...oldList, category]);
-    setNewCategory('');
-  };
-
-  const deleteCategory = (id: number) => {
-    const newArray = categories.filter((category: any) => category.id !== id);
-    setCategories(newArray);
-  };
+  const categoryList = useSelector((state: RootState) => {
+    return state.items.categoryItems;
+  });
 
   return (
     <div>
-      <Input
-        type="text"
-        placeholder="New category"
-        value={newCategory}
-        onChange={handleChange}
-      />
-      <Button text="Add category" onClick={addCategory} />
-
+      <CategoryInput />
       <div>
-        {categories.map((category: any) => {
-          return (
-            <>
-              <CategoryItem key={category.id} title={category.title} />
-              <Button
-                text="Delete"
-                onClick={() => deleteCategory(category.id)}
-              />
-              ;
-            </>
-          );
+        {categoryList.map((category: Category) => {
+          return <CategoryItem key={category.id} title={category.title} />;
         })}
       </div>
     </div>
