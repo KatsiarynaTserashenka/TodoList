@@ -15,7 +15,14 @@ const TodoList: FC = () => {
       <TodoInput />
       <div>
         {todoList.map((todo: Todo) => {
-          return <TodoItem key={todo.id} title={todo.title} />;
+          return (
+            <TodoItem
+              key={todo.id}
+              title={todo.title}
+              isDone={todo.isDone}
+              id={todo.id}
+            />
+          );
         })}
       </div>
     </div>
