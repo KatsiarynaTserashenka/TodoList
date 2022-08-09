@@ -1,8 +1,9 @@
 import React, { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { completeTodo, editTodo, deleteTodo } from 'redux/actions/actions';
 import Button from 'components/Button';
+import editIcon from 'imgs/EditIcon.svg';
+import deleteIcon from 'imgs/DeleteIcon.svg';
 
 const TodoItem: FC<{ title: string; isDone: boolean; id: string }> = (
   props

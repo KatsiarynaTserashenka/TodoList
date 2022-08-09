@@ -4,17 +4,31 @@ import TodoInput from 'components/TodoInput';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store/store';
 import { Todo } from 'redux/models/Todo';
+import { FilterType } from 'redux/models/FilterType';
 
 const TodoList: FC = () => {
   const todoList = useSelector((state: RootState) => {
     return state.items.todoItems;
+  });
+  const activeFilter = useSelector((state: RootState) => {
+    return state.items.filter;
+  });
+
+  const filteredTodoList = todoList.filter((item) => {
+    if (activeFilter === FilterType.DONE) {
+      return item.isDone;
+    }
+    if (activeFilter === FilterType.TODO) {
+      return !item.isDone;
+    }
+    return true;
   });
 
   return (
     <div>
       <TodoInput />
       <div>
-        {todoList.map((todo: Todo) => {
+        {filteredTodoList.map((todo: Todo) => {
           return (
             <TodoItem
               key={todo.id}
