@@ -13,13 +13,19 @@ const TodoList: FC = () => {
   const activeFilter = useSelector((state: RootState) => {
     return state.items.filter;
   });
+  const searchString = useSelector((state: RootState) => {
+    return state.items.searchString;
+  });
 
   const filteredTodoList = todoList.filter((item) => {
     if (activeFilter === FilterType.DONE) {
       return item.isDone;
     }
-    if (activeFilter === FilterType.TODO) {
+    /* if (activeFilter === FilterType.TODO) {
       return !item.isDone;
+    } */
+    if (activeFilter === FilterType.SEARCH) {
+      return item.title.toLowerCase().includes(searchString);
     }
     return true;
   });

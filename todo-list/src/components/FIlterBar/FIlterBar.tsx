@@ -1,16 +1,11 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setFilter } from 'redux/actions/actions';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store/store';
+import { setFilter, setSearchString } from 'redux/actions/actions';
 import { FilterType } from 'redux/models/FilterType';
 
 const FilterBar: FC = () => {
   const [showDone, setShowDone] = useState(false);
-  const [showTodo, setShowTodo] = useState(false);
-  const activeFilter = useSelector((state: RootState) => {
-    return state.items.filter;
-  });
+  /* const [showTodo, setShowTodo] = useState(false); */
 
   const dispatch = useDispatch();
 
@@ -22,11 +17,9 @@ const FilterBar: FC = () => {
       setShowDone(false);
       dispatch(setFilter(FilterType.ALL));
     }
-    console.log(showDone);
-    console.log(activeFilter);
   };
 
-  const onSetTodo = () => {
+  /* const onSetTodo = () => {
     if (!showTodo) {
       setShowTodo(true);
       dispatch(setFilter(FilterType.TODO));
@@ -34,6 +27,11 @@ const FilterBar: FC = () => {
       setShowTodo(false);
       dispatch(setFilter(FilterType.ALL));
     }
+  }; */
+
+  const searchTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchString(e.target.value));
+    dispatch(setFilter(FilterType.SEARCH));
   };
 
   return (
@@ -42,9 +40,9 @@ const FilterBar: FC = () => {
       <div>
         <input type="checkbox" onChange={onSetDone} />
         <span>Show done</span>
-        <input type="checkbox" onClick={onSetTodo} />
-        <span>Show in progress</span>
-        <input type="search" placeholder="Search" />
+        {/* <input type="checkbox" onClick={onSetTodo} />
+        <span>Show in progress</span> */}
+        <input type="search" placeholder="Search" onChange={searchTodo} />
       </div>
     </>
   );
