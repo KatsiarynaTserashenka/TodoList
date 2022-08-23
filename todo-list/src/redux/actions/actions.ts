@@ -18,6 +18,8 @@ export enum ActionType {
   DELETE_DONE_TODOS = 'DELETE_DONE_TODOS',
   SET_FILTER = 'SET_FILTER',
   SET_SEARCH_STRING = 'SET_SEARCH_STRING',
+  SET_CATEGORY = 'SET_CATEGORY',
+  SHOW_TODOS = 'SHOW_TODOS',
 }
 
 export type AddTodoAction = ActionPayload<ActionType.ADD_TODO, Todo>;
@@ -51,13 +53,16 @@ export type SetSearchStringAction = ActionPayload<
   ActionType.SET_SEARCH_STRING,
   string
 >;
+export type SetCategoryAction = ActionPayload<ActionType.SET_CATEGORY, string>;
+export type ShowTodosAction = ActionPayload<ActionType.SHOW_TODOS, string>;
 
-export const addTodo = (title: string): AddTodoAction => ({
+export const addTodo = (title: string, categoryId: string): AddTodoAction => ({
   type: ActionType.ADD_TODO,
   payload: {
     id: uuidv4(),
     title,
     isDone: false,
+    categoryId,
   },
 });
 
@@ -125,4 +130,9 @@ export const setSearchString = (
 ): SetSearchStringAction => ({
   type: ActionType.SET_SEARCH_STRING,
   payload: searchString,
+});
+
+export const setCategory = (id: string): SetCategoryAction => ({
+  type: ActionType.SET_CATEGORY,
+  payload: id,
 });

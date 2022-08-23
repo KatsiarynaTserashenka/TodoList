@@ -45,7 +45,7 @@ const TodoItem: FC<{ title: string; isDone: boolean; id: string }> = (
               onChange={completeOnChange}
             />
             <div onClick={editOnClick} data-testid="todo-start-edit">
-              {/* <img src={editIcon} alt="edit" /> */}
+              <img src={editIcon} alt="edit" />
             </div>
             <div
               onClick={() => {
@@ -53,7 +53,7 @@ const TodoItem: FC<{ title: string; isDone: boolean; id: string }> = (
               }}
               data-testid="todo-delete"
             >
-              {/* <img src={deleteIcon} alt="delete" /> */}
+              <img src={deleteIcon} alt="delete" />
             </div>
           </div>
         </>

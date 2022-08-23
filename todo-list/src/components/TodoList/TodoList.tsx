@@ -16,35 +16,40 @@ const TodoList: FC = () => {
   const searchString = useSelector((state: RootState) => {
     return state.items.searchString;
   });
+  const categoryId = useSelector((state: RootState) => {
+    return state.items.categoryId;
+  });
 
   const filteredTodoList = todoList.filter((item) => {
     if (activeFilter === FilterType.DONE) {
       return item.isDone;
     }
-    /* if (activeFilter === FilterType.TODO) {
-      return !item.isDone;
-    } */
     if (activeFilter === FilterType.SEARCH) {
       return item.title.toLowerCase().includes(searchString);
     }
-    return true;
+    return item.categoryId === categoryId;
   });
 
   return (
     <div>
       <TodoInput />
-      <div>
-        {filteredTodoList.map((todo: Todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              title={todo.title}
-              isDone={todo.isDone}
-              id={todo.id}
-            />
-          );
-        })}
-      </div>
+      {filteredTodoList && (
+        <div>
+          {filteredTodoList.map((todo: Todo) => {
+            return (
+              <>
+                <TodoItem
+                  key={todo.id}
+                  title={todo.title}
+                  isDone={todo.isDone}
+                  id={todo.id}
+                />
+                {console.log(todo)}
+              </>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

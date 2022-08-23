@@ -15,7 +15,13 @@ const CategoryList: FC = () => {
       <CategoryInput />
       <div>
         {categoryList.map((category: Category) => {
-          return <CategoryItem key={category.id} title={category.title} />;
+          return (
+            <CategoryItem
+              key={category.id}
+              title={category.title}
+              categoryId={category.id}
+            />
+          );
         })}
       </div>
     </div>
