@@ -1,6 +1,7 @@
 import { Todo } from 'redux/models/Todo';
-import { ActionType } from 'redux/actions/actions';
 import {
+  ActionType,
+  SetSearchStringAction,
   AddTodoAction,
   AddCategoryAction,
   EditCategoryAction,
@@ -12,6 +13,7 @@ import {
   DeleteAllCategoriesAction,
   CompleteTodoAction,
   SetFilterAction,
+  SetCategoryAction,
 } from 'redux/actions/actions';
 import { FilterType } from 'redux/models/FilterType';
 import { Category } from 'redux/models/Category';
@@ -20,6 +22,8 @@ export type State = {
   todoItems: Array<Todo>;
   categoryItems: Array<Category>;
   filter: FilterType;
+  searchString: string;
+  categoryId: string;
 };
 
 const persistedTodos = localStorage.getItem('todoItems');
@@ -47,6 +51,8 @@ const initialState: State = {
   todoItems,
   categoryItems,
   filter: filter,
+  searchString: '',
+  categoryId: '',
 };
 
 type ActionTypes =
@@ -60,7 +66,9 @@ type ActionTypes =
   | DeleteDoneTodosAction
   | DeleteTodoAction
   | CompleteTodoAction
-  | SetFilterAction;
+  | SetFilterAction
+  | SetSearchStringAction
+  | SetCategoryAction;
 
 export const reducer = (state: State = initialState, action: ActionTypes) => {
   switch (action.type) {
@@ -164,6 +172,20 @@ export const reducer = (state: State = initialState, action: ActionTypes) => {
       return {
         ...state,
         filter: action.payload,
+      };
+    }
+
+    case ActionType.SET_SEARCH_STRING: {
+      return {
+        ...state,
+        searchString: action.payload,
+      };
+    }
+
+    case ActionType.SET_CATEGORY: {
+      return {
+        ...state,
+        categoryId: action.payload,
       };
     }
 

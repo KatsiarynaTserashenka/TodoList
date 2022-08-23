@@ -2,15 +2,24 @@ import React, { FC, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from 'components/Button';
 import { addTodo } from 'redux/actions/actions';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store/store';
 
 const TodoInput: FC = () => {
   const [todoInput, setTodoInput] = useState('');
+  const categoryId = useSelector((state: RootState) => {
+    return state.items.categoryId;
+  });
   const dispatch = useDispatch();
 
   const addOnClick = useCallback(() => {
-    dispatch(addTodo(todoInput));
-    setTodoInput('');
-  }, [dispatch, todoInput]);
+    if (todoInput) {
+      dispatch(addTodo(todoInput, categoryId));
+      setTodoInput('');
+    } else {
+      alert('Enter your task!');
+    }
+  }, [dispatch, todoInput, categoryId]);
 
   return (
     <div>

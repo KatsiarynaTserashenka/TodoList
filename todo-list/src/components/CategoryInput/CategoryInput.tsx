@@ -8,8 +8,12 @@ const CategoryInput: FC = () => {
   const dispatch = useDispatch();
 
   const addOnClick = useCallback(() => {
-    dispatch(addCategory(categoryInput));
-    setCategoryInput('');
+    if (categoryInput) {
+      dispatch(addCategory(categoryInput));
+      setCategoryInput('');
+    } else {
+      alert('Enter your category!');
+    }
   }, [dispatch, categoryInput]);
 
   return (
